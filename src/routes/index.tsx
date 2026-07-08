@@ -537,6 +537,7 @@ function Home() {
 
       {/* ========== ASMA UL HUSNA STRIP ========== */}
       <section className="relative overflow-hidden bg-garden py-24 text-ivory">
+        <VideoBackdrop src={mosqueDawnVideo.url} opacity={0.4} overlayClass="bg-garden/70" />
         <div className="pattern-islamic absolute inset-0 opacity-25" aria-hidden />
         <AmbientBackdrop />
         <img
