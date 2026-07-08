@@ -7,6 +7,10 @@ import calligraphy2 from "@/assets/calligraphy-2.png";
 import calligraphy3 from "@/assets/calligraphy-3.png";
 import calligraphy4 from "@/assets/calligraphy-4.png";
 import sufiVideo from "@/assets/sufi-hero-bg.mp4.asset.json";
+import calligraphyInkVideo from "@/assets/calligraphy-ink.mp4.asset.json";
+import mosqueDawnVideo from "@/assets/mosque-dawn.mp4.asset.json";
+import desertNightVideo from "@/assets/desert-night.mp4.asset.json";
+import manuscriptVideo from "@/assets/manuscript.mp4.asset.json";
 import { DISCORD_URL } from "@/lib/data";
 import { sections } from "@/lib/sections";
 
