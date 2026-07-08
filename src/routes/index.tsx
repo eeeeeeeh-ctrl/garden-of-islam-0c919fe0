@@ -598,6 +598,12 @@ function Home() {
       {/* ========== DISCORD CTA ========== */}
       <section className="mx-auto max-w-5xl px-6 py-24">
         <div className="relative overflow-hidden rounded-3xl bg-garden p-12 text-ivory shadow-leaf md:p-16">
+          <video
+            src={desertNightVideo.url}
+            autoPlay loop muted playsInline preload="auto" aria-hidden
+            className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-45"
+          />
+          <div className="pointer-events-none absolute inset-0 bg-garden/70" aria-hidden />
           <div className="pattern-islamic absolute inset-0 opacity-30" aria-hidden />
           <img
             src={calligraphy4}
