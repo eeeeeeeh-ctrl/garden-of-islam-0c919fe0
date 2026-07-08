@@ -132,31 +132,29 @@ function AmbientBackdrop() {
         </g>
       </svg>
 
-      {/* Whirling dervishes drifting across */}
-      <div
-        className="absolute left-[8%] top-[55%] h-40 w-24 text-gold-soft/20"
-        style={{ animation: "dervish-drift 42s linear infinite" }}
-      >
-        <div className="h-full w-full" style={{ animation: "whirl 6s linear infinite" }}>
-          <WhirlingDervish className="h-full w-full" />
-        </div>
-      </div>
-      <div
-        className="absolute right-[10%] top-[20%] h-32 w-20 text-gold-soft/15"
-        style={{ animation: "dervish-drift 56s linear infinite reverse", animationDelay: "-8s" }}
-      >
-        <div className="h-full w-full" style={{ animation: "whirl 8s linear infinite reverse" }}>
-          <WhirlingDervish className="h-full w-full" />
-        </div>
-      </div>
-      <div
-        className="absolute left-[42%] bottom-[8%] h-28 w-16 text-gold-soft/18"
-        style={{ animation: "dervish-drift 70s linear infinite", animationDelay: "-25s" }}
-      >
-        <div className="h-full w-full" style={{ animation: "whirl 5s linear infinite" }}>
-          <WhirlingDervish className="h-full w-full" />
-        </div>
-      </div>
+      {/* Floating calligraphy fragments drifting across (replaces the geometric dervishes) */}
+      {[
+        { word: "ٱللَّٰه", top: "48%", start: "-15vw", dur: 55, delay: 0, size: "text-8xl", rot: -4 },
+        { word: "هُو", top: "18%", start: "-20vw", dur: 70, delay: -18, size: "text-9xl", rot: 3 },
+        { word: "مُحَمَّد ﷺ", top: "72%", start: "-25vw", dur: 62, delay: -34, size: "text-7xl", rot: -2 },
+        { word: "بِسْمِ ٱللَّٰه", top: "32%", start: "-30vw", dur: 78, delay: -50, size: "text-6xl", rot: 5 },
+      ].map((c, i) => (
+        <span
+          key={`float-${i}`}
+          className={`text-arabic absolute font-semibold text-gold-soft/[0.11] whitespace-nowrap ${c.size}`}
+          style={{
+            top: c.top,
+            left: c.start,
+            animation: `calligraphy-drift ${c.dur}s linear infinite`,
+            animationDelay: `${c.delay}s`,
+            filter: "blur(0.5px) drop-shadow(0 0 20px rgba(212,175,90,0.25))",
+            transform: `rotate(${c.rot}deg)`,
+          }}
+          aria-hidden
+        >
+          {c.word}
+        </span>
+      ))}
 
       {/* Drifting crescents */}
       {[
