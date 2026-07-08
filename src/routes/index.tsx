@@ -264,10 +264,22 @@ function Home() {
     <>
       {/* ========== HERO ========== */}
       <section className="relative overflow-hidden bg-garden text-ivory">
-        <div className="pattern-islamic absolute inset-0 opacity-25" aria-hidden />
+        {/* Cinematic video backdrop */}
+        <video
+          src={sufiVideo.url}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          aria-hidden
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-60"
+        />
+        <div className="absolute inset-0 bg-garden/55" aria-hidden />
+        <div className="pattern-islamic absolute inset-0 opacity-20" aria-hidden />
         <AmbientBackdrop />
         <div
-          className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_10%,rgba(0,0,0,0.6)_95%)]"
+          className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_10%,rgba(0,0,0,0.55)_95%)]"
           aria-hidden
         />
 
