@@ -487,6 +487,12 @@ function Home() {
 
       {/* ========== HADITH GRID ========== */}
       <section className="relative overflow-hidden bg-parchment py-24">
+        <video
+          src={manuscriptVideo.url}
+          autoPlay loop muted playsInline preload="auto" aria-hidden
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-20"
+        />
+        <div className="pointer-events-none absolute inset-0 bg-parchment/75" aria-hidden />
         <div className="pattern-islamic absolute inset-0 opacity-[0.05]" aria-hidden />
         <div className="relative mx-auto max-w-6xl px-6">
           <div className="mx-auto max-w-2xl text-center">
