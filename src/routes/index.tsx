@@ -46,6 +46,29 @@ const hadiths = [
   },
 ];
 
+// Whirling dervish silhouette — a Sufi in sama'
+function WhirlingDervish({ className = "", style }: { className?: string; style?: React.CSSProperties }) {
+  return (
+    <svg viewBox="0 0 100 160" className={className} style={style} aria-hidden>
+      <g fill="currentColor">
+        {/* Sikke (tall hat) */}
+        <path d="M42 6 L58 6 L57 30 L43 30 Z" />
+        {/* Head */}
+        <ellipse cx="50" cy="34" rx="5.5" ry="5" />
+        {/* Body/torso */}
+        <path d="M44 40 L56 40 L58 62 L42 62 Z" />
+        {/* Outstretched arms */}
+        <path d="M20 46 L44 44 L44 52 L22 54 Z" opacity="0.85" />
+        <path d="M56 44 L80 46 L78 54 L56 52 Z" opacity="0.85" />
+        {/* Flaring skirt — the whirling tennure */}
+        <path d="M20 62 L80 62 L96 150 L4 150 Z" opacity="0.9" />
+        <path d="M28 62 L72 62 L88 150 L12 150 Z" opacity="0.55" />
+        <path d="M36 62 L64 62 L78 150 L22 150 Z" opacity="0.35" />
+      </g>
+    </svg>
+  );
+}
+
 // A slow drifting light backdrop that reads as cinematic ambient motion.
 function AmbientBackdrop() {
   return (
@@ -55,10 +78,20 @@ function AmbientBackdrop() {
       <div className="absolute right-[-15%] top-[30%] h-[70vh] w-[70vh] rounded-full bg-[radial-gradient(circle,rgba(120,180,140,0.22),transparent_70%)] blur-3xl animate-[bloom_24s_ease-in-out_infinite_reverse]" />
       <div className="absolute bottom-[-20%] left-[20%] h-[55vh] w-[55vh] rounded-full bg-[radial-gradient(circle,rgba(212,175,90,0.18),transparent_70%)] blur-3xl animate-[bloom_30s_ease-in-out_infinite]" />
 
-      {/* Slow rotating star of alignment (Rub el Hizb) */}
+      {/* Radiant light rays sweeping from above (nur) */}
+      <div
+        className="absolute left-1/2 top-[-30%] h-[140%] w-[140%] -translate-x-1/2 opacity-[0.09]"
+        style={{
+          background:
+            "conic-gradient(from 0deg at 50% 20%, transparent 0deg, rgba(212,175,90,0.6) 6deg, transparent 12deg, transparent 30deg, rgba(212,175,90,0.5) 36deg, transparent 42deg, transparent 60deg, rgba(212,175,90,0.6) 66deg, transparent 72deg, transparent 90deg, rgba(212,175,90,0.5) 96deg, transparent 102deg, transparent 360deg)",
+          animation: "spin 220s linear infinite",
+        }}
+      />
+
+      {/* Slow rotating star of alignment (Rub el Hizb tessellation) */}
       <svg
         viewBox="0 0 400 400"
-        className="absolute left-1/2 top-1/2 h-[120vmin] w-[120vmin] -translate-x-1/2 -translate-y-1/2 opacity-[0.06]"
+        className="absolute left-1/2 top-1/2 h-[120vmin] w-[120vmin] -translate-x-1/2 -translate-y-1/2 opacity-[0.07]"
         style={{ animation: "spin 180s linear infinite" }}
       >
         <g fill="none" stroke="#d4af5a" strokeWidth="0.5">
@@ -73,23 +106,140 @@ function AmbientBackdrop() {
         </g>
       </svg>
 
-      {/* Drifting motes */}
-      {Array.from({ length: 24 }).map((_, i) => (
+      {/* Counter-rotating geometric mandala */}
+      <svg
+        viewBox="0 0 400 400"
+        className="absolute left-1/2 top-1/2 h-[90vmin] w-[90vmin] -translate-x-1/2 -translate-y-1/2 opacity-[0.09]"
+        style={{ animation: "spin 260s linear infinite reverse" }}
+      >
+        <g fill="none" stroke="#d4af5a" strokeWidth="0.4">
+          {Array.from({ length: 16 }).map((_, i) => (
+            <g key={i} transform={`rotate(${(i * 360) / 16} 200 200)`}>
+              <circle cx="200" cy="80" r="40" />
+              <circle cx="200" cy="120" r="20" />
+            </g>
+          ))}
+        </g>
+      </svg>
+
+      {/* Whirling dervishes drifting across */}
+      <div
+        className="absolute left-[8%] top-[55%] h-40 w-24 text-gold-soft/20"
+        style={{ animation: "dervish-drift 42s linear infinite" }}
+      >
+        <div className="h-full w-full" style={{ animation: "whirl 6s linear infinite" }}>
+          <WhirlingDervish className="h-full w-full" />
+        </div>
+      </div>
+      <div
+        className="absolute right-[10%] top-[20%] h-32 w-20 text-gold-soft/15"
+        style={{ animation: "dervish-drift 56s linear infinite reverse", animationDelay: "-8s" }}
+      >
+        <div className="h-full w-full" style={{ animation: "whirl 8s linear infinite reverse" }}>
+          <WhirlingDervish className="h-full w-full" />
+        </div>
+      </div>
+      <div
+        className="absolute left-[42%] bottom-[8%] h-28 w-16 text-gold-soft/18"
+        style={{ animation: "dervish-drift 70s linear infinite", animationDelay: "-25s" }}
+      >
+        <div className="h-full w-full" style={{ animation: "whirl 5s linear infinite" }}>
+          <WhirlingDervish className="h-full w-full" />
+        </div>
+      </div>
+
+      {/* Drifting crescents */}
+      {[
+        { top: "12%", left: "18%", size: 28, dur: 34, delay: 0 },
+        { top: "70%", left: "78%", size: 22, dur: 44, delay: -12 },
+        { top: "40%", left: "88%", size: 18, dur: 52, delay: -30 },
+        { top: "82%", left: "8%", size: 24, dur: 40, delay: -18 },
+      ].map((c, i) => (
+        <svg
+          key={i}
+          viewBox="0 0 40 40"
+          className="absolute text-gold-soft/30"
+          style={{
+            top: c.top,
+            left: c.left,
+            width: c.size,
+            height: c.size,
+            animation: `float ${c.dur}s ease-in-out infinite`,
+            animationDelay: `${c.delay}s`,
+          }}
+          aria-hidden
+        >
+          <path
+            d="M28 6 A 15 15 0 1 0 28 34 A 12 12 0 1 1 28 6 Z"
+            fill="currentColor"
+          />
+        </svg>
+      ))}
+
+      {/* Floating divine name calligraphy (Allah, Muhammad ﷺ) */}
+      {[
+        { top: "18%", left: "72%", word: "ٱللَّٰه", size: "text-6xl", dur: 38, delay: 0, rot: -6 },
+        { top: "62%", left: "12%", word: "مُحَمَّد ﷺ", size: "text-5xl", dur: 48, delay: -14, rot: 4 },
+        { top: "35%", left: "35%", word: "هُو", size: "text-7xl", dur: 60, delay: -28, rot: -3 },
+        { top: "78%", left: "55%", word: "لَا إِلَٰهَ إِلَّا ٱللَّٰه", size: "text-3xl", dur: 44, delay: -6, rot: 2 },
+      ].map((c, i) => (
         <span
           key={i}
-          className="absolute h-[3px] w-[3px] rounded-full bg-gold-soft/50"
+          className={`text-arabic absolute font-semibold text-gold-soft/[0.08] ${c.size}`}
+          style={{
+            top: c.top,
+            left: c.left,
+            transform: `rotate(${c.rot}deg)`,
+            animation: `float ${c.dur}s ease-in-out infinite`,
+            animationDelay: `${c.delay}s`,
+          }}
+          aria-hidden
+        >
+          {c.word}
+        </span>
+      ))}
+
+      {/* Drifting motes / stars */}
+      {Array.from({ length: 40 }).map((_, i) => (
+        <span
+          key={i}
+          className="absolute h-[3px] w-[3px] rounded-full bg-gold-soft/60"
           style={{
             top: `${(i * 37) % 100}%`,
             left: `${(i * 53) % 100}%`,
             animation: `drift ${18 + (i % 7) * 3}s linear infinite`,
-            animationDelay: `${i * 0.7}s`,
+            animationDelay: `${i * 0.5}s`,
+            boxShadow: "0 0 6px rgba(212,175,90,0.6)",
+          }}
+        />
+      ))}
+
+      {/* Twinkling larger stars */}
+      {Array.from({ length: 10 }).map((_, i) => (
+        <span
+          key={`tw-${i}`}
+          className="absolute h-1.5 w-1.5 rounded-full bg-gold-soft"
+          style={{
+            top: `${(i * 71) % 100}%`,
+            left: `${(i * 91) % 100}%`,
+            animation: `twinkle ${3 + (i % 4)}s ease-in-out infinite`,
+            animationDelay: `${i * 0.4}s`,
+            boxShadow: "0 0 10px rgba(212,175,90,0.9)",
           }}
         />
       ))}
 
       <style>{`
         @keyframes bloom { 0%,100% { transform: translate3d(0,0,0) scale(1); } 50% { transform: translate3d(4%,-3%,0) scale(1.1); } }
-        @keyframes drift { 0% { transform: translate(0,0); opacity: 0; } 10% { opacity: 1; } 100% { transform: translate(-40px,-120px); opacity: 0; } }
+        @keyframes drift { 0% { transform: translate(0,0); opacity: 0; } 10% { opacity: 1; } 100% { transform: translate(-40px,-140px); opacity: 0; } }
+        @keyframes float { 0%,100% { transform: translate3d(0,0,0) rotate(var(--r,0deg)); } 50% { transform: translate3d(-3%,-4%,0) rotate(var(--r,0deg)); } }
+        @keyframes twinkle { 0%,100% { opacity: 0.2; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.4); } }
+        @keyframes dervish-drift {
+          0% { transform: translate3d(-20vw, 0, 0); opacity: 0; }
+          10% { opacity: 1; }
+          90% { opacity: 1; }
+          100% { transform: translate3d(120vw, -8vh, 0); opacity: 0; }
+        }
       `}</style>
     </div>
   );
