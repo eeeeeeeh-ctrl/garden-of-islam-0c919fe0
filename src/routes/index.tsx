@@ -242,11 +242,11 @@ function AmbientBackdrop() {
         @keyframes drift { 0% { transform: translate(0,0); opacity: 0; } 10% { opacity: 1; } 100% { transform: translate(-40px,-140px); opacity: 0; } }
         @keyframes float { 0%,100% { transform: translate3d(0,0,0) rotate(var(--r,0deg)); } 50% { transform: translate3d(-3%,-4%,0) rotate(var(--r,0deg)); } }
         @keyframes twinkle { 0%,100% { opacity: 0.2; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.4); } }
-        @keyframes dervish-drift {
-          0% { transform: translate3d(-20vw, 0, 0); opacity: 0; }
+        @keyframes calligraphy-drift {
+          0% { transform: translate3d(0, 0, 0) rotate(var(--r,0deg)); opacity: 0; }
           10% { opacity: 1; }
           90% { opacity: 1; }
-          100% { transform: translate3d(120vw, -8vh, 0); opacity: 0; }
+          100% { transform: translate3d(140vw, -6vh, 0) rotate(var(--r,0deg)); opacity: 0; }
         }
       `}</style>
     </div>
