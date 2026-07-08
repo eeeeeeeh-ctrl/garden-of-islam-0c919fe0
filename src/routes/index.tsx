@@ -51,26 +51,31 @@ const hadiths = [
   },
 ];
 
-// Whirling dervish silhouette — a Sufi in sama'
-function WhirlingDervish({ className = "", style }: { className?: string; style?: React.CSSProperties }) {
+// Reusable cinematic video backdrop layer
+function VideoBackdrop({
+  src,
+  opacity = 0.35,
+  overlayClass = "bg-garden/70",
+}: {
+  src: string;
+  opacity?: number;
+  overlayClass?: string;
+}) {
   return (
-    <svg viewBox="0 0 100 160" className={className} style={style} aria-hidden>
-      <g fill="currentColor">
-        {/* Sikke (tall hat) */}
-        <path d="M42 6 L58 6 L57 30 L43 30 Z" />
-        {/* Head */}
-        <ellipse cx="50" cy="34" rx="5.5" ry="5" />
-        {/* Body/torso */}
-        <path d="M44 40 L56 40 L58 62 L42 62 Z" />
-        {/* Outstretched arms */}
-        <path d="M20 46 L44 44 L44 52 L22 54 Z" opacity="0.85" />
-        <path d="M56 44 L80 46 L78 54 L56 52 Z" opacity="0.85" />
-        {/* Flaring skirt — the whirling tennure */}
-        <path d="M20 62 L80 62 L96 150 L4 150 Z" opacity="0.9" />
-        <path d="M28 62 L72 62 L88 150 L12 150 Z" opacity="0.55" />
-        <path d="M36 62 L64 62 L78 150 L22 150 Z" opacity="0.35" />
-      </g>
-    </svg>
+    <>
+      <video
+        src={src}
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        aria-hidden
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+        style={{ opacity }}
+      />
+      <div className={`pointer-events-none absolute inset-0 ${overlayClass}`} aria-hidden />
+    </>
   );
 }
 
