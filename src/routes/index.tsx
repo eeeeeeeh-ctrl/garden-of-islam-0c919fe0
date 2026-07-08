@@ -7,6 +7,10 @@ import calligraphy2 from "@/assets/calligraphy-2.png";
 import calligraphy3 from "@/assets/calligraphy-3.png";
 import calligraphy4 from "@/assets/calligraphy-4.png";
 import sufiVideo from "@/assets/sufi-hero-bg.mp4.asset.json";
+import calligraphyInkVideo from "@/assets/calligraphy-ink.mp4.asset.json";
+import mosqueDawnVideo from "@/assets/mosque-dawn.mp4.asset.json";
+import desertNightVideo from "@/assets/desert-night.mp4.asset.json";
+import manuscriptVideo from "@/assets/manuscript.mp4.asset.json";
 import { DISCORD_URL } from "@/lib/data";
 import { sections } from "@/lib/sections";
 
@@ -47,26 +51,31 @@ const hadiths = [
   },
 ];
 
-// Whirling dervish silhouette — a Sufi in sama'
-function WhirlingDervish({ className = "", style }: { className?: string; style?: React.CSSProperties }) {
+// Reusable cinematic video backdrop layer
+function VideoBackdrop({
+  src,
+  opacity = 0.35,
+  overlayClass = "bg-garden/70",
+}: {
+  src: string;
+  opacity?: number;
+  overlayClass?: string;
+}) {
   return (
-    <svg viewBox="0 0 100 160" className={className} style={style} aria-hidden>
-      <g fill="currentColor">
-        {/* Sikke (tall hat) */}
-        <path d="M42 6 L58 6 L57 30 L43 30 Z" />
-        {/* Head */}
-        <ellipse cx="50" cy="34" rx="5.5" ry="5" />
-        {/* Body/torso */}
-        <path d="M44 40 L56 40 L58 62 L42 62 Z" />
-        {/* Outstretched arms */}
-        <path d="M20 46 L44 44 L44 52 L22 54 Z" opacity="0.85" />
-        <path d="M56 44 L80 46 L78 54 L56 52 Z" opacity="0.85" />
-        {/* Flaring skirt — the whirling tennure */}
-        <path d="M20 62 L80 62 L96 150 L4 150 Z" opacity="0.9" />
-        <path d="M28 62 L72 62 L88 150 L12 150 Z" opacity="0.55" />
-        <path d="M36 62 L64 62 L78 150 L22 150 Z" opacity="0.35" />
-      </g>
-    </svg>
+    <>
+      <video
+        src={src}
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        aria-hidden
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+        style={{ opacity }}
+      />
+      <div className={`pointer-events-none absolute inset-0 ${overlayClass}`} aria-hidden />
+    </>
   );
 }
 
@@ -123,31 +132,29 @@ function AmbientBackdrop() {
         </g>
       </svg>
 
-      {/* Whirling dervishes drifting across */}
-      <div
-        className="absolute left-[8%] top-[55%] h-40 w-24 text-gold-soft/20"
-        style={{ animation: "dervish-drift 42s linear infinite" }}
-      >
-        <div className="h-full w-full" style={{ animation: "whirl 6s linear infinite" }}>
-          <WhirlingDervish className="h-full w-full" />
-        </div>
-      </div>
-      <div
-        className="absolute right-[10%] top-[20%] h-32 w-20 text-gold-soft/15"
-        style={{ animation: "dervish-drift 56s linear infinite reverse", animationDelay: "-8s" }}
-      >
-        <div className="h-full w-full" style={{ animation: "whirl 8s linear infinite reverse" }}>
-          <WhirlingDervish className="h-full w-full" />
-        </div>
-      </div>
-      <div
-        className="absolute left-[42%] bottom-[8%] h-28 w-16 text-gold-soft/18"
-        style={{ animation: "dervish-drift 70s linear infinite", animationDelay: "-25s" }}
-      >
-        <div className="h-full w-full" style={{ animation: "whirl 5s linear infinite" }}>
-          <WhirlingDervish className="h-full w-full" />
-        </div>
-      </div>
+      {/* Floating calligraphy fragments drifting across (replaces the geometric dervishes) */}
+      {[
+        { word: "ٱللَّٰه", top: "48%", start: "-15vw", dur: 55, delay: 0, size: "text-8xl", rot: -4 },
+        { word: "هُو", top: "18%", start: "-20vw", dur: 70, delay: -18, size: "text-9xl", rot: 3 },
+        { word: "مُحَمَّد ﷺ", top: "72%", start: "-25vw", dur: 62, delay: -34, size: "text-7xl", rot: -2 },
+        { word: "بِسْمِ ٱللَّٰه", top: "32%", start: "-30vw", dur: 78, delay: -50, size: "text-6xl", rot: 5 },
+      ].map((c, i) => (
+        <span
+          key={`float-${i}`}
+          className={`text-arabic absolute font-semibold text-gold-soft/[0.11] whitespace-nowrap ${c.size}`}
+          style={{
+            top: c.top,
+            left: c.start,
+            animation: `calligraphy-drift ${c.dur}s linear infinite`,
+            animationDelay: `${c.delay}s`,
+            filter: "blur(0.5px) drop-shadow(0 0 20px rgba(212,175,90,0.25))",
+            transform: `rotate(${c.rot}deg)`,
+          }}
+          aria-hidden
+        >
+          {c.word}
+        </span>
+      ))}
 
       {/* Drifting crescents */}
       {[
@@ -235,11 +242,11 @@ function AmbientBackdrop() {
         @keyframes drift { 0% { transform: translate(0,0); opacity: 0; } 10% { opacity: 1; } 100% { transform: translate(-40px,-140px); opacity: 0; } }
         @keyframes float { 0%,100% { transform: translate3d(0,0,0) rotate(var(--r,0deg)); } 50% { transform: translate3d(-3%,-4%,0) rotate(var(--r,0deg)); } }
         @keyframes twinkle { 0%,100% { opacity: 0.2; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.4); } }
-        @keyframes dervish-drift {
-          0% { transform: translate3d(-20vw, 0, 0); opacity: 0; }
+        @keyframes calligraphy-drift {
+          0% { transform: translate3d(0, 0, 0) rotate(var(--r,0deg)); opacity: 0; }
           10% { opacity: 1; }
           90% { opacity: 1; }
-          100% { transform: translate3d(120vw, -8vh, 0); opacity: 0; }
+          100% { transform: translate3d(140vw, -6vh, 0) rotate(var(--r,0deg)); opacity: 0; }
         }
       `}</style>
     </div>
@@ -403,6 +410,12 @@ function Home() {
 
       {/* ========== AYAH BAND ========== */}
       <section className="relative overflow-hidden border-y border-accent/20 bg-parchment py-24">
+        <video
+          src={calligraphyInkVideo.url}
+          autoPlay loop muted playsInline preload="auto" aria-hidden
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-25"
+        />
+        <div className="pointer-events-none absolute inset-0 bg-parchment/70" aria-hidden />
         <div className="pattern-islamic absolute inset-0 opacity-[0.06]" aria-hidden />
         <RubElHizb className="absolute left-8 top-8 h-16 w-16 text-accent/25" />
         <RubElHizb className="absolute right-8 bottom-8 h-16 w-16 text-accent/25" />
@@ -474,6 +487,12 @@ function Home() {
 
       {/* ========== HADITH GRID ========== */}
       <section className="relative overflow-hidden bg-parchment py-24">
+        <video
+          src={manuscriptVideo.url}
+          autoPlay loop muted playsInline preload="auto" aria-hidden
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-20"
+        />
+        <div className="pointer-events-none absolute inset-0 bg-parchment/75" aria-hidden />
         <div className="pattern-islamic absolute inset-0 opacity-[0.05]" aria-hidden />
         <div className="relative mx-auto max-w-6xl px-6">
           <div className="mx-auto max-w-2xl text-center">
@@ -518,6 +537,7 @@ function Home() {
 
       {/* ========== ASMA UL HUSNA STRIP ========== */}
       <section className="relative overflow-hidden bg-garden py-24 text-ivory">
+        <VideoBackdrop src={mosqueDawnVideo.url} opacity={0.4} overlayClass="bg-garden/70" />
         <div className="pattern-islamic absolute inset-0 opacity-25" aria-hidden />
         <AmbientBackdrop />
         <img
@@ -578,6 +598,12 @@ function Home() {
       {/* ========== DISCORD CTA ========== */}
       <section className="mx-auto max-w-5xl px-6 py-24">
         <div className="relative overflow-hidden rounded-3xl bg-garden p-12 text-ivory shadow-leaf md:p-16">
+          <video
+            src={desertNightVideo.url}
+            autoPlay loop muted playsInline preload="auto" aria-hidden
+            className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-45"
+          />
+          <div className="pointer-events-none absolute inset-0 bg-garden/70" aria-hidden />
           <div className="pattern-islamic absolute inset-0 opacity-30" aria-hidden />
           <img
             src={calligraphy4}
