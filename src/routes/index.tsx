@@ -6,6 +6,7 @@ import calligraphy1 from "@/assets/calligraphy-1.png";
 import calligraphy2 from "@/assets/calligraphy-2.png";
 import calligraphy3 from "@/assets/calligraphy-3.png";
 import calligraphy4 from "@/assets/calligraphy-4.png";
+import sufiVideo from "@/assets/sufi-hero-bg.mp4.asset.json";
 import { DISCORD_URL } from "@/lib/data";
 import { sections } from "@/lib/sections";
 
