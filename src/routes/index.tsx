@@ -410,6 +410,12 @@ function Home() {
 
       {/* ========== AYAH BAND ========== */}
       <section className="relative overflow-hidden border-y border-accent/20 bg-parchment py-24">
+        <video
+          src={calligraphyInkVideo.url}
+          autoPlay loop muted playsInline preload="auto" aria-hidden
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-25"
+        />
+        <div className="pointer-events-none absolute inset-0 bg-parchment/70" aria-hidden />
         <div className="pattern-islamic absolute inset-0 opacity-[0.06]" aria-hidden />
         <RubElHizb className="absolute left-8 top-8 h-16 w-16 text-accent/25" />
         <RubElHizb className="absolute right-8 bottom-8 h-16 w-16 text-accent/25" />
